@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="Portfolio d’Adèle Bernard(eau)."
+    />
+    <title>Adèle B. — Portfolio</title>
+    <style>
+      :root {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #171717;
+        background: #fff;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100svh;
+        margin: 0;
+        overflow: hidden;
+        background: #fff;
+      }
+
+      .site-header {
+        position: absolute;
+        z-index: 3;
+        top: 0;
+        right: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 34px 5vw;
+      }
+
+      .wordmark,
+      .navigation a {
+        color: inherit;
+        font-size: 20px;
+        line-height: 1;
+        text-decoration: none;
+      }
+
+      .wordmark {
+        font-weight: 700;
+        letter-spacing: 0.025em;
+      }
+
+      .navigation {
+        display: flex;
+        align-items: center;
+        gap: clamp(24px, 4vw, 58px);
+      }
+
+      .navigation a {
+        font-weight: 400;
+      }
+
+      .navigation a::after {
+        display: block;
+        width: 0;
+        height: 1px;
+        margin-top: 5px;
+        background: currentColor;
+        content: "";
+        transition: width 180ms ease;
+      }
+
+      .navigation a:hover::after,
+      .navigation a:focus-visible::after {
+        width: 100%;
+      }
+
+      .page {
+        position: relative;
+        min-height: 100svh;
+        overflow: hidden;
+      }
+
+      .intro {
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        left: 10vw;
+        transform: translateY(-50%);
+      }
+
+      .intro h1 {
+        margin: 0;
+        font-size: 72px;
+        font-weight: 700;
+        letter-spacing: -0.065em;
+        line-height: 1;
+      }
+
+      .carousel {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .orbit {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .photo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: clamp(145px, 15vw, 218px);
+        aspect-ratio: 4 / 5;
+        padding: 0;
+        overflow: hidden;
+        border: 5px solid #fff;
+        border-radius: 2px;
+        background: #f0efed;
+        box-shadow: 0 12px 35px rgb(22 20 18 / 12%);
+        cursor: zoom-in;
+        pointer-events: auto;
+        will-change: transform;
+      }
+
+      .photo img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+
+      .photo:hover img,
+      .photo:focus-visible img {
+        transform: scale(1.045);
+      }
+
+      .photo:focus-visible,
+      .navigation a:focus-visible {
+        outline: 2px solid #171717;
+        outline-offset: 5px;
+      }
+
+      .image-viewer {
+        width: min(88vw, 900px);
+        max-width: none;
+        max-height: 88svh;
+        padding: 12px;
+        overflow: visible;
+        border: 0;
+        background: #fff;
+        box-shadow: 0 20px 80px rgb(0 0 0 / 18%);
+      }
+
+      .image-viewer[open] {
+        animation: viewer-in 200ms ease-out both;
+      }
+
+      .image-viewer::backdrop {
+        background: rgb(255 255 255 / 84%);
+        backdrop-filter: blur(8px);
+      }
+
+      .image-viewer img {
+        display: block;
+        max-width: 100%;
+        max-height: calc(88svh - 24px);
+        margin: auto;
+        object-fit: contain;
+      }
+
+      .close-viewer {
+        position: absolute;
+        top: -42px;
+        right: 0;
+        width: 34px;
+        height: 34px;
+        padding: 0;
+        border: 1px solid #d5d5d5;
+        border-radius: 50%;
+        background: #fff;
+        color: #171717;
+        font: inherit;
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      @keyframes viewer-in {
+        from {
+          opacity: 0;
+          transform: scale(0.97);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @media (max-width: 700px) {
+        .site-header {
+          padding: 26px 6vw;
+        }
+
+        .wordmark,
+        .navigation a {
+          font-size: 16px;
+        }
+
+        .navigation {
+          gap: 20px;
+        }
+
+        .intro {
+          left: 7vw;
+        }
+
+        .intro h1 {
+          font-size: clamp(48px, 12vw, 72px);
+        }
+
+        .photo {
+          width: clamp(112px, 28vw, 170px);
+          border-width: 4px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href="#accueil">ADÈLE BERNARDEAU</a>
+      <nav class="navigation" aria-label="Navigation principale">
+        <a href="mailto:contact@example.com">contact</a>
+        <a href="#travaux">travaux</a>
+      </nav>
+    </header>
+
+    <main class="page" id="accueil">
+      <section class="intro" aria-labelledby="name">
+        <h1 id="name">Adèle B.</h1>
+      </section>
+
+      <div class="carousel" id="travaux" aria-label="Quelques travaux">
+        <div class="orbit">
+          <button class="photo" type="button" aria-label="Agrandir l’image 1">
+            <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=480&h=600&q=85" alt="Projet de démonstration, architecture" />
+          </button>
+          <button class="photo" type="button" aria-label="Agrandir l’image 2">
+            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=480&h=600&q=85" alt="Projet de démonstration, bâtiment" />
+          </button>
+          <button class="photo" type="button" aria-label="Agrandir l’image 3">
+            <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=480&h=600&q=85" alt="Projet de démonstration, composition d’objets" />
+          </button>
+          <button class="photo" type="button" aria-label="Agrandir l’image 4">
+            <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=480&h=600&q=85" alt="Projet de démonstration, architecture" />
+          </button>
+          <button class="photo" type="button" aria-label="Agrandir l’image 5">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=480&h=600&q=85" alt="Projet de démonstration, paysage" />
+          </button>
+          <button class="photo" type="button" aria-label="Agrandir l’image 6">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=480&h=600&q=85" alt="Projet de démonstration, mode" />
+          </button>
+          <button class="photo" type="button" aria-label="Agrandir l’image 7">
+            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=480&h=600&q=85" alt="Projet de démonstration, stylisme" />
+          </button>
+          <button class="photo" type="button" aria-label="Agrandir l’image 8">
+            <img src="https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=480&h=600&q=85" alt="Projet de démonstration, matériaux" />
+          </button>
+          <button class="photo" type="button" aria-label="Agrandir l’image 9">
+            <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=480&h=600&q=85" alt="Projet de démonstration, ciel" />
+          </button>
+          <button class="photo" type="button" aria-label="Agrandir l’image 10">
+            <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=480&h=600&q=85" alt="Projet de démonstration, exposition" />
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <dialog class="image-viewer" aria-label="Aperçu de l’image">
+      <button class="close-viewer" type="button" aria-label="Fermer l’aperçu">×</button>
+      <img src="" alt="" />
+    </dialog>
+
+    <script>
+      const orbit = document.querySelector(".orbit");
+      const photos = Array.from(document.querySelectorAll(".photo"));
+      const viewer = document.querySelector(".image-viewer");
+      const viewerImage = viewer.querySelector("img");
+      const closeViewer = viewer.querySelector(".close-viewer");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+      let frameId;
+      let startTime;
+
+      function placePhotos(time) {
+        if (startTime === undefined) startTime = time;
+
+        const cardWidth = window.innerWidth <= 700
+          ? Math.min(170, Math.max(112, window.innerWidth * 0.28))
+          : Math.min(218, Math.max(145, window.innerWidth * 0.15));
+        const cardHeight = cardWidth * 1.25;
+        const headerClearance = window.innerWidth <= 700 ? 70 : 82;
+        const availableRadiusY =
+          (window.innerHeight - cardHeight) / 2 - headerClearance - 12;
+        const radiusX = Math.min(window.innerWidth * 0.46, 580);
+        const radiusY = Math.max(
+          0,
+          Math.min(
+            window.innerHeight * 0.42,
+            availableRadiusY / Math.sin((72 * Math.PI) / 180),
+          ),
+        );
+        const rotation = reduceMotion.matches ? 0 : -((time - startTime) / 60000) * 360;
+
+        photos.forEach((photo, index) => {
+          const angle = ((108 + (index * 360) / photos.length + rotation) * Math.PI) / 180;
+          const x = Math.cos(angle) * radiusX;
+          const y = Math.sin(angle) * radiusY;
+          const depth = (Math.sin(angle) + 1) / 2;
+          const tilt = ((index % 2 === 0 ? -1 : 1) * (5 + depth * 2)).toFixed(1);
+
+          photo.style.zIndex = String(Math.round(depth * 10));
+          photo.style.transform =
+            `translate(-50%, -50%) translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) rotate(${tilt}deg)`;
+        });
+
+        if (!reduceMotion.matches) frameId = requestAnimationFrame(placePhotos);
+      }
+
+      function openViewer(photo) {
+        const image = photo.querySelector("img");
+        viewerImage.src = image.currentSrc || image.src;
+        viewerImage.alt = image.alt;
+        viewer.showModal();
+      }
+
+      photos.forEach((photo) => {
+        photo.addEventListener("click", () => openViewer(photo));
+      });
+
+      closeViewer.addEventListener("click", () => viewer.close());
+      viewer.addEventListener("click", (event) => {
+        if (event.target === viewer) viewer.close();
+      });
+
+      window.addEventListener("resize", () => {
+        if (frameId) cancelAnimationFrame(frameId);
+        frameId = requestAnimationFrame(placePhotos);
+      });
+
+      reduceMotion.addEventListener("change", () => {
+        if (frameId) cancelAnimationFrame(frameId);
+        frameId = requestAnimationFrame(placePhotos);
+      });
+
+      frameId = requestAnimationFrame(placePhotos);
+    </script>
+  </body>
+</html>
